@@ -25,9 +25,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="relative flex min-h-screen flex-col w-full">
+          <div className="relative flex min-h-screen flex-col">
             <Header />
-            <main className="flex-grow">{children}</main>
+            <main className="flex-1">{children}</main>
             {/* Tambahkan Footer di sini jika perlu */}
           </div>
         </ThemeProvider>

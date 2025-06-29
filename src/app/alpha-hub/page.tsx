@@ -37,7 +37,7 @@ export default function AlphaHubPage() {
                         Exclusive Access
                     </span>
                     <h1 className="mt-4 text-4xl md:text-6xl font-bold tracking-tight text-white">
-                        You're One Step Away from <br /> <span className="text-indigo-400">the Inner Circle</span>.
+                        You&apos;re One Step Away from <br /> <span className="text-indigo-400">the Inner Circle</span>.
                     </h1>
                     <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-300">
                         The Alpha Hub is our private, members-only space where the real magic happens. Stop hunting alone and start farming with an edge.
@@ -49,7 +49,7 @@ export default function AlphaHubPage() {
             <div className="bg-dark py-16 md:py-24">
                 <div className="container mx-auto px-4">
                     <div className="max-w-4xl mx-auto">
-                        <h2 className="text-3xl font-bold text-center mb-12 text-white">What You'll Get Inside:</h2>
+                        <h2 className="text-3xl font-bold text-center mb-12 text-white">What You&apos;ll Get Inside:</h2>
                         <div className="space-y-10">
                             {benefits.map((benefit, index) => (
                                 <div key={index} className="flex items-start gap-6">

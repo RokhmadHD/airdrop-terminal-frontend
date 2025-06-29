@@ -4,10 +4,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { getProfile } from "@/lib/api";
 import { UpdateProfileForm } from "@/components/profile/UpdateProfileForm";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ProfileSidebarNav } from "@/components/profile/ProfileSidebarNav";
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar";
 
 export default async function ProfilePage() {
     const supabase = await createClient();
@@ -18,12 +16,6 @@ export default async function ProfilePage() {
     }
 
     const profile = await getProfile(user.id);
-    const getInitials = (name?: string) => {
-        if (!name) return user.email?.charAt(0).toUpperCase() || "U";
-        const names = name.split(' ');
-        if (names.length > 1) return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
-        return name.substring(0, 2).toUpperCase();
-    };
     // Jika profil belum ada karena trigger belum berjalan, tampilkan pesan.
     if (!profile) {
         return (
@@ -63,18 +55,6 @@ export default async function ProfilePage() {
                             </p>
                         </div>
                         <Separator />
-                        {/* <div className="flex items-center gap-6 mb-8">
-                            <Avatar className="h-24 w-24 border-2 rounded-full relative overflow-hidden">
-                                <AvatarImage src={profile.avatar_url || user.user_metadata.avatar_url} className="absolute" />
-                                <AvatarFallback className="text-3xl">{getInitials(profile.full_name)}</AvatarFallback>
-                            </Avatar>
-                            <div>
-                                <h1 className="text-3xl font-bold">{profile.full_name || 'Anonymous User'}</h1>
-                                <p className="text-muted-foreground">{user.email}</p>
-                            </div>
-                        </div> */}
-
-                        {/* Form Edit Profil diletakkan di sini */}
                         <UpdateProfileForm profile={profile} />
                     </div>
                 </div>

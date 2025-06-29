@@ -132,7 +132,7 @@ function LoginForm() {
           Sign in with Google
         </Button>
         <div className="mt-4 text-center text-sm">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link href="/auth/register" className="underline font-semibold hover:text-primary">
             Sign up
           </Link>

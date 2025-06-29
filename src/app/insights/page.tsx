@@ -1,7 +1,6 @@
 // src/app/guides/page.tsx
 
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowRight, Compass } from "lucide-react"; // Kita mungkin tidak butuh ikon spesifik lagi
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getGuides } from "@/lib/api"; // <-- Import fungsi API kita

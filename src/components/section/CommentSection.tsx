@@ -10,14 +10,13 @@ import Link from "next/link";
 // Tipe data & fungsi API
 import { CommentWithReplies, Comment as AppComment } from "@/lib/types";
 import { getComments, postComment } from "@/lib/api";
-import { createClient } from "@/lib/supabase/client";
 
 // Komponen UI dari shadcn/ui
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "../ui/skeleton";
 import { useUser } from "@/contexts/UserProvider";
 
@@ -36,8 +35,8 @@ interface CommentFormProps {
   isSubmitting: boolean;
 }
 
-function CommentForm({ 
-  onSubmit, 
+function CommentForm({
+  onSubmit,
   placeholder = "Write a comment...",
   submitButtonText = "Post Comment",
   isSubmitting,
@@ -81,13 +80,13 @@ function CommentForm({
 // --- Komponen #2: Item Komentar Individual (dengan rekursi) ---
 
 interface CommentItemProps {
-  comment: CommentWithReplies; 
+  comment: CommentWithReplies;
   target: { guideId?: number; airdropId?: number };
   onReplySuccess: (newReply: AppComment, parentId: number) => void;
 }
 
 function CommentItem({ comment, target, onReplySuccess }: CommentItemProps) {
-  const {  session } = useUser();
+  const { session } = useUser();
   const [isReplying, setIsReplying] = useState(false);
   const [isSubmittingReply, setIsSubmittingReply] = useState(false);
 
@@ -103,10 +102,10 @@ function CommentItem({ comment, target, onReplySuccess }: CommentItemProps) {
       const newReply: AppComment = await postComment({
         content: values.content,
         guide_id: target.guideId,
-        airdrop_id:target.airdropId,
+        airdrop_id: target.airdropId,
         parent_id: comment.id,
       }, session.access_token);
-      
+
       onReplySuccess(newReply, comment.id);
       setIsReplying(false);
     } catch (error) {
@@ -131,14 +130,14 @@ function CommentItem({ comment, target, onReplySuccess }: CommentItemProps) {
           </p>
         </div>
         <p className="text-sm my-1 whitespace-pre-wrap">{comment.content}</p>
-        
+
         <Button variant="ghost" size="sm" className="h-auto p-1 text-xs" onClick={() => setIsReplying(!isReplying)}>
           {isReplying ? 'Cancel' : 'Reply'}
         </Button>
 
         {isReplying && (
           <div className="mt-2">
-            <CommentForm 
+            <CommentForm
               onSubmit={handleReplySubmit}
               placeholder={`Replying to ${comment.author.full_name || 'Anonymous'}...`}
               submitButtonText="Post Reply"
@@ -150,9 +149,9 @@ function CommentItem({ comment, target, onReplySuccess }: CommentItemProps) {
         {comment.replies && comment.replies.length > 0 && (
           <div className="mt-4 pl-6 border-l-2 space-y-6">
             {comment.replies.map(reply => (
-              <CommentItem 
-                key={reply.id} 
-                comment={reply} 
+              <CommentItem
+                key={reply.id}
+                comment={reply}
                 target={target}
                 onReplySuccess={onReplySuccess}
               />
@@ -204,7 +203,7 @@ export function CommentSection({ target }: CommentSectionProps) {
     setComments(prevComments => addReplyToState(prevComments, newReply, parentId));
   };
 
-  
+
   const handlePostNewComment = async (values: { content: string }) => {
     setIsSubmittingNew(true);
     if (!session) {
@@ -219,7 +218,7 @@ export function CommentSection({ target }: CommentSectionProps) {
         guide_id: target.guideId,
         airdrop_id: target.airdropId
       }, session.access_token);
-      
+
       setComments(prev => [...prev, { ...newCommentData, replies: [] }]);
     } catch (error) {
       console.error("Failed to post comment:", error);
@@ -232,13 +231,13 @@ export function CommentSection({ target }: CommentSectionProps) {
   return (
     <div className="mt-12">
       <h2 className="text-2xl font-bold mb-6">Discussion</h2>
-      
+
       <Card className="mb-8">
         <CardContent className="p-6 py-2">
           <h3 className="font-semibold mb-2">Leave a Comment</h3>
           {user ? (
-            <CommentForm 
-              onSubmit={handlePostNewComment} 
+            <CommentForm
+              onSubmit={handlePostNewComment}
               isSubmitting={isSubmittingNew}
             />
           ) : (
@@ -273,9 +272,9 @@ export function CommentSection({ target }: CommentSectionProps) {
       ) : comments.length > 0 ? (
         <div className="space-y-6">
           {comments.map(comment => (
-            <CommentItem 
-              key={comment.id} 
-              comment={comment} 
+            <CommentItem
+              key={comment.id}
+              comment={comment}
               target={target}
               onReplySuccess={handleReplySuccess}
             />

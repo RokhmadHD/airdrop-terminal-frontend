@@ -5,7 +5,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
-import { Skeleton } from "@/components/ui/skeleton"; // Untuk loading state
+// import { Skeleton } from "@/components/ui/skeleton"; // Untuk loading state
 
 // Definisikan tipe untuk context value
 interface UserContextType {

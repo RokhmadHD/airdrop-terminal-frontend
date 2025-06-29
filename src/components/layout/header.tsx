@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
-import { Bell } from "lucide-react";
 import { useUser } from "@/contexts/UserProvider";
 import { Skeleton } from "../ui/skeleton";
 import { Button } from "../ui/button";

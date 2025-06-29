@@ -34,7 +34,7 @@ const HeroCanvas = () => {
 
     // Sesuaikan warna berdasarkan tema
     const particleColor = theme === 'dark' ? 'rgba(165, 180, 252, 1)' : 'rgba(99, 102, 241, 1)'; // Indigo-300 / Indigo-500
-    const lineColor = theme === 'dark' ? 'rgba(129, 140, 248, 1)' : 'rgba(79, 70, 229, 1)'; // Indigo-400 / Indigo-600
+    // const lineColor = theme === 'dark' ? 'rgba(129, 140, 248, 1)' : 'rgba(79, 70, 229, 1)'; // Indigo-400 / Indigo-600
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -69,7 +69,7 @@ const HeroCanvas = () => {
 
           if (distance < maxDistance) {
             // Hitung opasitas berdasarkan jarak
-            const opacity = 1 - (distance / maxDistance);
+            // const opacity = 1 - (distance / maxDistance);
 
             ctx.beginPath();
             ctx.strokeStyle = 'indigo'//`rgba(${lineColor.slice(5, -1)}, ${opacity})`;

@@ -101,11 +101,11 @@ export default async function GuideDetailPage(props: GuideDetailPageProps) {
                             components={{
                                 // Opsi kustomisasi: Ganti cara rendering elemen tertentu
                                 // Contoh: membuat semua link terbuka di tab baru
-                                a: ({ node, ...props }) => (
+                                a: ({ ...props }) => (
                                     <a {...props} target="_blank" rel="noopener noreferrer" />
                                 ),
                                 // Contoh: menambahkan styling khusus untuk gambar
-                                img: ({ node, ...props }) => (
+                                img: ({ ...props }) => (
                                     <img {...props} className="rounded-lg border shadow-md" />
                                 )
                             }}

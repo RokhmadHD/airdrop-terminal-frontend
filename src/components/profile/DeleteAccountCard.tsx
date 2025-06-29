@@ -3,8 +3,6 @@
 
 import { useState } from "react";
 import { Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,7 +20,6 @@ import {
 
 
 export function DeleteAccountCard() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDelete = async () => {

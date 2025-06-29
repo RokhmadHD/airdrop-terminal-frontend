@@ -58,7 +58,7 @@ export function UpdatePasswordCard() {
       <CardHeader>
         <CardTitle>Change Password</CardTitle>
         <CardDescription>
-          Choose a new password for your account. It's a good practice to use a strong, unique password.
+          Choose a new password for your account. It&apos;s a good practice to use a strong, unique password.
         </CardDescription>
       </CardHeader>
       <CardContent>

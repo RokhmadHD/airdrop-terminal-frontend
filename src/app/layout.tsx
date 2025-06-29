@@ -7,6 +7,7 @@ import { Header } from "@/components/layout/header";
 import NextTopLoader from 'nextjs-toploader';
 import { Footer } from "@/components/layout/footer";
 import HeroCanvas from "@/components/section/HeroCanvas";
+import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -37,6 +38,7 @@ export default function RootLayout({
               {/* Tambahkan Footer di sini jika perlu */}
               <Footer />
             </div>
+            <Toaster />
           </UserProvider>
         </ThemeProvider>
       </body>

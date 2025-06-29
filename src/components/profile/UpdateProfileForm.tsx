@@ -15,6 +15,7 @@ import { Profile } from "@/lib/types";
 import { updateProfile } from "@/lib/api";
 import { useUser } from "@/contexts/UserProvider";
 import { AvatarUploader } from "./AvatarUploader";
+import {toast} from 'sonner'
 
 const profileFormSchema = z.object({
     full_name: z.string().max(50, "Name is too long.").optional(),
@@ -32,7 +33,7 @@ export function UpdateProfileForm({ profile }: UpdateProfileFormProps) {
     const router = useRouter();
     const { session } = useUser();
     const [isLoading, setIsLoading] = useState(false);
-    const [serverError, setServerError] = useState('')
+    const [serverError, setServerError] = useState<string>('')
     const form = useForm<ProfileFormValues>({
         resolver: zodResolver(profileFormSchema),
         defaultValues: {
@@ -44,18 +45,23 @@ export function UpdateProfileForm({ profile }: UpdateProfileFormProps) {
 
     async function onSubmit(data: ProfileFormValues) {
         if (!session) {
-            alert("Session expired. Please log in again.");
+            toast.error("Session expired. Please log in again.");
             return;
         }
         setIsLoading(true);
         try {
             await updateProfile(profile.id, data, session.access_token);
-            alert("Profile updated successfully!");
+            toast.success("Profile updated successfully!");
             router.refresh(); // Refresh halaman untuk menampilkan data baru
-        } catch (error: any) {
-            console.error(error);
-            setServerError(error?.message)
-            alert("Failed to update profile.");
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error(error.message);
+                setServerError(error.message)
+                toast.error("Failed to update profile.");
+            } else {
+                console.error("Unknown error:", error);
+                toast.error("An unexpected error occurred.");
+            }
         } finally {
             setIsLoading(false);
         }
@@ -66,11 +72,16 @@ export function UpdateProfileForm({ profile }: UpdateProfileFormProps) {
         try {
             // Langsung panggil API untuk update avatar_url
             await updateProfile(profile.id, { avatar_url: newUrl }, session.access_token);
-            alert("Avatar updated!");
+            toast.success("Avatar updated!");
             router.refresh();
-        } catch (error:any) {
-            console.error(error.message);
-            alert("Failed to save new avatar.");
+        } catch (error: unknown) {
+            if (error instanceof Error) {
+                console.error(error.message);
+                toast.error("Failed to save new avatar.");
+            } else {
+                console.error("Unknown error:", error);
+                toast.error("An unexpected error occurred.");
+            }
         } finally {
             setIsLoading(false);
         }

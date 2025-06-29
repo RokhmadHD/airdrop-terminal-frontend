@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, Calendar, User, Eye } from "lucide-react";
+import { ChevronLeft, Calendar} from "lucide-react";
 
 // Menggunakan ReactMarkdown untuk merender konten
 import ReactMarkdown from 'react-markdown';
@@ -13,7 +13,7 @@ import rehypeRaw from 'rehype-raw';
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
-import { CommentSection } from "@/components/section/CommentSection"; // Import seksi komentar
+import { CommentSection } from "@/components/section/CommentSection";
 
 // generateStaticParams sudah benar, mengambil data dari API
 export async function generateStaticParams() {
@@ -112,10 +112,10 @@ export default async function GuideDetailPage({ params }: { params: { slug: stri
               remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
               components={{
-                a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
-                img: ({node, ...props}) => <img {...props} className="rounded-lg border" />,
-                h2: ({node, ...props}) => <h2 {...props} className="text-2xl font-bold mt-8 mb-4 border-b pb-2" />,
-                h3: ({node, ...props}) => <h3 {...props} className="text-xl font-bold mt-6 mb-3" />,
+                a: ({ ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline" />,
+                img: ({...props}) => <img {...props} className="rounded-lg border" />,
+                h2: ({...props}) => <h2 {...props} className="text-2xl font-bold mt-8 mb-4 border-b pb-2" />,
+                h3: ({...props}) => <h3 {...props} className="text-xl font-bold mt-6 mb-3" />,
               }}
             >
               {guide.content}

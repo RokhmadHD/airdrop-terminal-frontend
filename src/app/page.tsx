@@ -13,7 +13,6 @@ export default function HomePage() {
   return (
     <>
     <HeroSection />
-    <HeroCanvas/>
     <FeaturedAirdrops />
     <TestimonialsSection />
     </>

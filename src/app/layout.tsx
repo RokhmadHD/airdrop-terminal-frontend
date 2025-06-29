@@ -6,6 +6,7 @@ import { UserProvider } from "@/contexts/UserProvider";
 import { Header } from "@/components/layout/header";
 import NextTopLoader from 'nextjs-toploader';
 import { Footer } from "@/components/layout/footer";
+import HeroCanvas from "@/components/section/HeroCanvas";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -31,6 +32,7 @@ export default function RootLayout({
           <UserProvider>
             <div className="relative flex min-h-screen flex-col w-full">
               <Header />
+              <HeroCanvas/>
               <main className="flex-grow">{children}</main>
               {/* Tambahkan Footer di sini jika perlu */}
               <Footer />

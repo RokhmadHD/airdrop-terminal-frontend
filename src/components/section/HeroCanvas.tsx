@@ -24,13 +24,13 @@ const HeroCanvas = () => {
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-
+    const isMobile = window.innerWidth < 768;
     let animationFrameId: number;
     const particles: Particle[] = [];
     // Kurangi jumlah partikel karena menggambar garis lebih berat secara komputasi
-    const numParticles = 70; 
+    const numParticles = isMobile ? 30 : 70;
     // Jarak maksimum untuk menggambar garis antar partikel
-    const maxDistance = 120; 
+    const maxDistance = 120;
 
     // Sesuaikan warna berdasarkan tema
     const particleColor = theme === 'dark' ? 'rgba(165, 180, 252, 1)' : 'rgba(99, 102, 241, 1)'; // Indigo-300 / Indigo-500
@@ -72,7 +72,7 @@ const HeroCanvas = () => {
             const opacity = 1 - (distance / maxDistance);
 
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(${lineColor.slice(5, -1)}, ${opacity})`;
+            ctx.strokeStyle = 'indigo'//`rgba(${lineColor.slice(5, -1)}, ${opacity})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(p1.x, p1.y);
             ctx.lineTo(p2.x, p2.y);

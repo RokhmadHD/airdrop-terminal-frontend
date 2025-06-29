@@ -11,7 +11,6 @@ import Link from "next/link";
 import { CommentSection } from "@/components/section/CommentSection";
 import { FollowButton } from "@/components/page/airdrop/FollowButton.tsx";
 
-// Fungsi untuk generate metadata dinamis (bagus untuk SEO)
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const { slug } = await params;
   const airdrop = await getAirdropBySlug(slug);
@@ -28,26 +27,23 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// Komponen untuk menampilkan satu info item
 function InfoItem({ icon: Icon, label, value }: { icon: React.ElementType, label: string, value: React.ReactNode }) {
   if (!value) return null;
   return (
-    <div className="flex items-center gap-3">
-      <Icon className="h-5 w-5 text-muted-foreground" />
+    <div className="flex items-start gap-3">
+      <Icon className="h-5 w-5 mt-1 text-muted-foreground" />
       <div>
         <p className="text-sm text-muted-foreground">{label}</p>
-        <p className="font-semibold">{value}</p>
+        <p className="font-semibold break-words">{value}</p>
       </div>
     </div>
   );
 }
 
-// Halaman utama
 export default async function AirdropDetailPage({ params }: { params: { slug: string } }) {
   const { slug } = await params;
   const airdrop = await getAirdropBySlug(slug);
 
-  // Jika airdrop tidak ditemukan (API mengembalikan null), tampilkan halaman 404
   if (!airdrop) {
     notFound();
   }
@@ -62,11 +58,10 @@ export default async function AirdropDetailPage({ params }: { params: { slug: st
   const status = !airdrop.is_active ? 'Finished' : airdrop.is_confirmed ? 'Confirmed' : 'Rumored';
 
   return (
-    <div className="container mx-auto max-w-[90rem] py-12">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div className="md:col-span-2">
-          {/* Header Halaman */}
-          <header className="mb-8 flex flex-col sm:flex-row items-start gap-6">
+    <div className="container max-w-screen-xl px-4 md:px-6 py-12 mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <div className="lg:col-span-3">
+          <header className="mb-8 flex flex-col sm:flex-row items-center md:items-start gap-6">
             {airdrop.image_url ? (
               <Image
                 src={airdrop.image_url}
@@ -80,25 +75,24 @@ export default async function AirdropDetailPage({ params }: { params: { slug: st
                 {airdrop.name.charAt(0)}
               </div>
             )}
-            <div className="flex-1">
+            <div className="flex-1 mx-auto text-center md:text-start">
               <Badge variant={status === 'Confirmed' ? "default" : "secondary"} className="mb-2">{status}</Badge>
-              <div className="flex gap-3 my-2">
-                <h1 className="text-4xl font-extrabold tracking-tight">{airdrop.name}</h1>
-                <p className="mt-2 text-lg text-muted-foreground">${airdrop.token_symbol}</p>
-              </div>
-              <FollowButton airdropId={airdrop.id} />
               {airdrop.project_url && (
-                <Button asChild variant="link" className="px-0">
+                <Button asChild variant="link" className="px-0 mt-2">
                   <Link href={airdrop.project_url} target="_blank" rel="noopener noreferrer">
                     Visit Project <ExternalLink className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               )}
+              <div className="flex flex-wrap items-center gap-3 my-2">
+                <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">{airdrop.name}</h1>
+                <p className="text-lg text-muted-foreground">${airdrop.token_symbol}</p>
+              </div>
+              <FollowButton airdropId={airdrop.id} />
             </div>
           </header>
 
-          {/* Grid Informasi Utama */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-3 gap-6 mb-8">
             <InfoItem icon={Network} label="Network" value={airdrop.network} />
             <InfoItem icon={Zap} label="Difficulty" value={airdrop.difficulty} />
             <InfoItem icon={CheckCircle} label="Value (USD)" value={airdrop.estimated_value_usd ? `$${airdrop.estimated_value_usd}` : 'N/A'} />
@@ -107,9 +101,8 @@ export default async function AirdropDetailPage({ params }: { params: { slug: st
             <InfoItem icon={Badge} label="Category" value={airdrop.category} />
           </div>
 
-          {/* Deskripsi dan Langkah-langkah */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="md:col-span-2">
+          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div className="xl:col-span-2">
               <Card>
                 <CardHeader>
                   <CardTitle>About this Airdrop</CardTitle>
@@ -152,7 +145,8 @@ export default async function AirdropDetailPage({ params }: { params: { slug: st
             </div>
           </div>
         </div>
-        <div className="container max-w-4xl mx-auto">
+
+        <div className="lg:col-span-1">
           <CommentSection target={{ airdropId: airdrop.id }} />
         </div>
       </div>

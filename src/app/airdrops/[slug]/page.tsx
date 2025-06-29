@@ -11,7 +11,10 @@ import Link from "next/link";
 import { CommentSection } from "@/components/section/CommentSection";
 import { FollowButton } from "@/components/page/airdrop/FollowButton.tsx";
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+type Params = {
+  params: Promise<{ slug: string }>
+}
+export async function generateMetadata({ params }: Params) {
   const { slug } = await params;
   const airdrop = await getAirdropBySlug(slug);
 
@@ -40,7 +43,7 @@ function InfoItem({ icon: Icon, label, value }: { icon: React.ElementType, label
   );
 }
 
-export default async function AirdropDetailPage({ params }: { params: { slug: string } }) {
+export default async function AirdropDetailPage({ params }: Params) {
   const { slug } = await params;
   const airdrop = await getAirdropBySlug(slug);
 

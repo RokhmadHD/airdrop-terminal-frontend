@@ -12,6 +12,7 @@ import remarkGfm from "remark-gfm";
 import { Guide } from "@/lib/types";
 import { CommentSection } from "@/components/section/CommentSection";
 
+
 // generateStaticParams sekarang mengambil data dari API
 export async function generateStaticParams() {
     const guides = await getGuides();
@@ -21,8 +22,10 @@ export async function generateStaticParams() {
     }));
 }
 
+type Params =Promise<{ slug: string }>
+
 // generateMetadata sekarang mengambil data dari API
-export async function generateMetadata(context: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(context: { params: Params }): Promise<Metadata> {
     const { slug } = await context.params;
 
     const guide = await getGuideBySlug(slug);
@@ -34,9 +37,7 @@ export async function generateMetadata(context: { params: { slug: string } }): P
 
 
 type GuideDetailPageProps = {
-    params: {
-        slug: string;
-    };
+    params: Promise<{ slug: string }>
 };
 
 export default async function GuideDetailPage(props: GuideDetailPageProps) {

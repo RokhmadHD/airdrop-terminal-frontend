@@ -15,6 +15,10 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { CommentSection } from "@/components/section/CommentSection";
 
+type Params = {
+  params: Promise<{ slug: string }>
+}
+
 // generateStaticParams sudah benar, mengambil data dari API
 export async function generateStaticParams() {
   const guides = await getGuides();
@@ -24,8 +28,9 @@ export async function generateStaticParams() {
 }
 
 // generateMetadata sudah benar, mengambil data dari API
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const guide = await getGuideBySlug(params.slug);
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const {slug} = await params
+  const guide = await getGuideBySlug(slug);
   if (!guide) return { title: "Guide Not Found" };
   return {
     title: `${guide.title} | Airdrop Terminal`,
@@ -37,8 +42,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 // Komponen Halaman Detail
-export default async function GuideDetailPage({ params }: { params: { slug: string } }) {
-  const guide = await getGuideBySlug(params.slug);
+export default async function GuideDetailPage({ params }: Params) {
+  const {slug} = await params
+  const guide = await getGuideBySlug(slug);
 
   if (!guide) {
     notFound();

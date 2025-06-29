@@ -30,3 +30,74 @@ export interface Airdrop {
   end_date?: string;
   is_active: boolean;
 }
+
+export interface AuthorProfile {
+  id: string; // UUID
+  full_name?: string;
+  avatar_url?: string;
+}
+
+export interface Guide {
+  id: number;
+  slug: string;
+  created_at: string;
+  updated_at: string;
+  published_at?: string;
+  author_id?: AuthorProfile | null;
+  title: string;
+  description?: string;
+  content?: string;
+  image_url?: string;
+  category?: 'Beginner' | 'Strategy' | 'Security' | 'Tools' | 'News';
+  status: 'draft' | 'published' | 'archived';
+}
+
+
+export interface CommentAuthor {
+  id: string; // UUID
+  full_name?: string;
+  avatar_url?: string;
+}
+
+export interface Comment {
+  id: number;
+  content: string;
+  created_at: string;
+  author: CommentAuthor;
+  parent_id?: number;
+  guide_id?: number;
+  airdrop_id?: number;
+}
+
+export interface CommentWithReplies extends Comment {
+  replies: CommentWithReplies[];
+}
+
+export interface Profile {
+  id: string; // UUID
+  username?: string;
+  full_name?: string;
+  avatar_url?: string;
+  website?: string;
+}
+
+export interface KnowledgeBaseSection {
+  id: number;
+  title: string;
+  subtitle?: string | null;
+  display_order: number;
+}
+
+export interface KnowledgeBaseSectionWithGuides extends KnowledgeBaseSection {
+  guides: Guide[]; 
+}
+
+export interface Notification {
+  id:number;
+  created_at:string;
+  title: string;
+  message?:string;
+  link_url?: string;
+  is_read: boolean;
+}
+

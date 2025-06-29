@@ -1,6 +1,6 @@
 // src/app/(airdrops)/page.tsx
 
-import {AirdropPageComponent} from "@/components/page/airdrop";
+import {AirdropPageComponent} from "@/components/page/airdrop/airdrop";
 import { getAirdrops } from "@/lib/api";
 
 // import { ExternalLink } from "lucide-react";

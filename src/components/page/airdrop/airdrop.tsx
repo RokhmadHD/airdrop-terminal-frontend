@@ -19,6 +19,7 @@ import { Button } from "@/components/ui/button";
 // Definisikan tipe untuk properti komponen
 interface AirdropComponentProps {
   initialAirdrops: Airdrop[];
+  isLoading?: boolean
 }
 
 // Fungsi untuk menentukan status berdasarkan data boolean
@@ -41,7 +42,7 @@ const difficultyColors: { [key: string]: string } = {
   Hard: 'text-red-400',
 };
 
-export function AirdropPageComponent({ initialAirdrops }: AirdropComponentProps) {
+export function AirdropPageComponent({ initialAirdrops, isLoading }: AirdropComponentProps) {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [networkFilter, setNetworkFilter] = useState("All");
@@ -53,11 +54,11 @@ export function AirdropPageComponent({ initialAirdrops }: AirdropComponentProps)
       const matchesSearch = airdrop.name
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
-      
+
       const airdropStatus = getAirdropStatus(airdrop);
       const matchesStatus =
         statusFilter === "All" || airdropStatus === statusFilter;
-      
+
       const matchesNetwork =
         networkFilter === "All" || airdrop.network === networkFilter;
 
@@ -115,9 +116,11 @@ export function AirdropPageComponent({ initialAirdrops }: AirdropComponentProps)
       </div>
 
       {/* Airdrop Grid */}
-      {currentAirdrops.length > 0 ? (
+      {isLoading ? (<div className="col-span-full text-center py-16 text-muted-foreground">
+        <p className="text-lg font-semibold">Loading your profile...</p>
+      </div>) : currentAirdrops.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-         {currentAirdrops.map(airdrop => {
+          {currentAirdrops.map(airdrop => {
             const status = getAirdropStatus(airdrop);
             const difficulty = airdrop.difficulty || 'N/A';
             const difficultyColor = difficultyColors[difficulty as keyof typeof difficultyColors] || 'text-muted-foreground';
@@ -143,12 +146,12 @@ export function AirdropPageComponent({ initialAirdrops }: AirdropComponentProps)
                       {status}
                     </span>
                   </div>
-                  
+
                   {/* Deskripsi */}
                   <p className="text-muted-foreground text-sm mb-6 h-12 line-clamp-3 flex-grow">
                     {airdrop.description || "No description provided."}
                   </p>
-                  
+
                   {/* Footer: Network & Difficulty */}
                   <div className="flex justify-between items-center text-sm border-t pt-4">
                     <div className="flex items-center gap-2 text-muted-foreground">
@@ -161,10 +164,10 @@ export function AirdropPageComponent({ initialAirdrops }: AirdropComponentProps)
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Tombol "View Guide" di Bawah */}
-                <Link 
-                  href={`/airdrops/${airdrop.slug}`} 
+                <Link
+                  href={`/airdrops/${airdrop.slug}`}
                   className="block bg-muted/50 p-4 text-center font-semibold text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300"
                 >
                   <div className="flex items-center justify-center gap-2">

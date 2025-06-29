@@ -1,0 +1,51 @@
+{
+    "id": "18aee5c2-4cd3-4756-99d5-68043eea196d",
+    "app_metadata": {
+        "provider": "email",
+        "providers": [
+            "email"
+        ]
+    },
+    "user_metadata": {
+        "email": "setsetdepan@gmail.com",
+        "email_verified": true,
+        "phone_verified": false,
+        "sub": "18aee5c2-4cd3-4756-99d5-68043eea196d"
+    },
+    "aud": "authenticated",
+    "confirmation_sent_at": "2025-06-22T13:03:32.239282Z",
+    "recovery_sent_at": null,
+    "email_change_sent_at": null,
+    "new_email": null,
+    "new_phone": null,
+    "invited_at": null,
+    "action_link": null,
+    "email": "setsetdepan@gmail.com",
+    "phone": "",
+    "created_at": "2025-06-22T13:03:32.223966Z",
+    "confirmed_at": "2025-06-22T13:04:25.310009Z",
+    "email_confirmed_at": "2025-06-22T13:04:25.310009Z",
+    "phone_confirmed_at": null,
+    "last_sign_in_at": "2025-06-26T16:26:21.146623Z",
+    "role": "authenticated",
+    "updated_at": "2025-06-26T16:26:21.153668Z",
+    "identities": [
+        {
+            "id": "18aee5c2-4cd3-4756-99d5-68043eea196d",
+            "identity_id": "50f16933-a4d9-4413-a216-6c7698dbff9a",
+            "user_id": "18aee5c2-4cd3-4756-99d5-68043eea196d",
+            "identity_data": {
+                "email": "setsetdepan@gmail.com",
+                "email_verified": true,
+                "phone_verified": false,
+                "sub": "18aee5c2-4cd3-4756-99d5-68043eea196d"
+            },
+            "provider": "email",
+            "created_at": "2025-06-22T13:03:32.235187Z",
+            "last_sign_in_at": "2025-06-22T13:03:32.235134Z",
+            "updated_at": "2025-06-22T13:03:32.235187Z"
+        }
+    ],
+    "is_anonymous": false,
+    "factors": null
+}

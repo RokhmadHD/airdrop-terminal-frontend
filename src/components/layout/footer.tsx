@@ -1,37 +1,30 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/contexts/theme-provider";
-import { Header } from "@/components/layout/header";
+import Link from 'next/link';
+import { Github, Twitter, Send } from 'lucide-react';
 
-const inter = Inter({ subsets: ["latin"] });
+const socialLinks = [
+    { name: 'Discord', href: '#', icon: Send },
+    { name: 'X/Twitter', href: '#', icon: Twitter },
+    { name: 'GitHub', href: '#', icon: Github },
+];
 
-export const metadata: Metadata = {
-  title: "Airdrop Terminal",
-  description: "Find the latest crypto airdrops.",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="relative flex min-h-screen flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            {/* Tambahkan Footer di sini jika perlu */}
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+export function Footer() {
+    return (
+        <footer className="border-t border-gray-200 dark:border-gray-800">
+            <div className="container mx-auto px-4 py-8">
+                <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                        © {new Date().getFullYear()} CryptoDAO. All rights reserved.
+                    </p>
+                    <div className="flex space-x-6">
+                        {socialLinks.map((link) => (
+                            <Link key={link.name} href={link.href} className="text-gray-400 hover:text-white" target="_blank" rel="noopener noreferrer">
+                                <link.icon size={20} />
+                                <span className="sr-only">{link.name}</span>
+                            </Link>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </footer>
+    );
 }
